@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-src/com/codecool/memory/Card.java
-src/com/codecool/memory/Game.java
->>>>>>> 58a36ef78c1190620fe43ad82634b02cd366b8c3
 src/com/codecool/memory/Memory.java
 src/com/codecool/memory/Game.java
 src/com/codecool/memory/Card.java

@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.event.EventHandler;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 
-import com.codecool.klondike.Card;
 
 
 public class Game extends Pane {
@@ -31,7 +33,7 @@ public class Game extends Pane {
       card.setIsFaceUp(); 
       cardsFacedUp.add(card);
     } 
-    if (cardsFacedUp == 2) {
+    if (cardsFacedUp.size() == 2) {
       handleGuessAttempt();
     }
     
@@ -42,7 +44,7 @@ public class Game extends Pane {
   private void handleGuessAttempt() {
     Card card1 = cardsFacedUp.get(0);
     Card card2 = cardsFacedUp.get(1);
-    if (card1.getName().equals(card2.getName())){
+    if (card1.getName() == card2.getName()){
       handleRightGuess();
     } else {
       handleWrongGuess();
@@ -53,7 +55,7 @@ public class Game extends Pane {
     for (int i = 0; i > cardsFacedUp.size(); i++) {
       Card cardFacedUp = cardsFacedUp.get(i);
       cardsFacedUp.remove(cardFacedUp);
-      cardFacedUp.setFaceDown();
+      cardFacedUp.flip();
     }
   }
 
