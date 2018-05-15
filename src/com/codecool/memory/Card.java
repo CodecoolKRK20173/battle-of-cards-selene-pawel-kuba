@@ -1,8 +1,14 @@
+package com.codecool.memory;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Card extends ImageView {
   private int cardName;
   private boolean isFaceUp = false;
   private Image frontImage;
   private Image backImage;
+  private Pile containingPile;
 
   public Card(int name) {
     this.cardName = cardName;
@@ -23,5 +29,9 @@ public class Card extends ImageView {
   public void flip() {
     isFaceUp = !isFaceUp;
     setImage(isFaceUp ? backImage : frontImage);
+  }
+
+  public Pile getContainingPile() {
+    return containingPile;
   }
 }

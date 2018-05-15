@@ -1,6 +1,8 @@
 package com.codecool.memory;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.*;
 
 public class Pile extends Pane {
 
@@ -34,7 +36,6 @@ public class Pile extends Pane {
     return cards.size();
   }
 
-  @Override
   public boolean isEmpty() {
     return cards.isEmpty();
   }
