@@ -47,4 +47,8 @@ public class Pile extends Pane {
   public void shufflePile() {
     FXCollections.shuffle(cards);
   }
+
+  public void addCard(Card card) {
+    cards.add(card);
+  }
 }
