@@ -19,4 +19,9 @@ public class Card extends ImageView {
   public void setIsFaceUp() {
     isFaceUp = !isFaceUp;
   }
+
+  public void flip() {
+    isFaceUp = !isFaceUp;
+    setImage(isFaceUp ? backImage : frontImage);
+  }
 }
