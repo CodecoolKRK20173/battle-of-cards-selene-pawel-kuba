@@ -37,6 +37,12 @@ public class Card extends ImageView {
     setImage(isFaceUp ? frontImage : backImage);
   }
 
+  public void flip() {
+    isFaceUp = !isFaceUp;
+    setImage(isFaceUp ? backImage : frontImage);
+  }
+
+  
   public List<Card> createStartPile(int numberOfPairs) {
     List<Card> result = new ArrayList<>();
     for (int i = numberOfPairs; i > 0; i--) {
