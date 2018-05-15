@@ -51,4 +51,8 @@ public class Pile extends Pane {
   public void addCard(Card card) {
     cards.add(card);
   }
+
+  public void flushPile() {
+    cards.clear();
+  }
 }
