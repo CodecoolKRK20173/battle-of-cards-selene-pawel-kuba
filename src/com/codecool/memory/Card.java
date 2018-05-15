@@ -16,11 +16,7 @@ public class Card extends ImageView {
     return cardName;
   }
 
-  public setIsFaceUp() {
-    if (isFaceUp) {
-      isFaceUp = false;
-    } else {
-      isFaceUp = true;
-    }
+  public void setIsFaceUp() {
+    isFaceUp = !isFaceUp;
   }
 }
