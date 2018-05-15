@@ -18,7 +18,7 @@ public class Pile extends Pane {
     return pileType;
   }
 
-  public getName() {
+  public String getName() {
     return name;
   }
 
