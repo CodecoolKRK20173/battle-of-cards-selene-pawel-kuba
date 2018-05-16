@@ -9,7 +9,6 @@ import javafx.scene.layout.*;
 public class Game extends Pane {
 
   private ArrayList<Card> cardsFacedUp = new ArrayList();
-  private static String actualCatalogueName = "MahjongImages";
 
   public Game() {
     initPiles();
