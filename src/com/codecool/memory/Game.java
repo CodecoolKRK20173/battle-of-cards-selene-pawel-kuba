@@ -18,7 +18,6 @@ public class Game extends Pane {
 
   public Game() {
     initPiles();
-    System.out.println(stock.getCards());
     setCardsOnTable();
     cardsNames(stock);
     dealCards();
@@ -28,7 +27,6 @@ public class Game extends Pane {
     Iterator<Card> deckIterator = stock.getCards().iterator();
     deckIterator.forEachRemaining(
         card -> {
-          System.out.println("beniz");
           card.setOnMouseClicked(onMouseClickedHandler);
         });
   }
@@ -64,18 +62,22 @@ public class Game extends Pane {
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-    int width = 80;
-    int height = 120;
+    int baseWidth = 200;
+    int width = 73;
+    int baseHeight = 75;
+    int height = 110;
     int r = 0;
-    int margin = 10;
-    for (int i = 0; i < 32; i++) {
+    double margin = 0;
+    for (int i = 0; i < 60; i++) {
       Card card = cards.get(i);
-      card.setLayoutX(width + (r * width));
-      card.setLayoutY(height + (j * height));
+
+      card.setLayoutX(baseWidth + (r * width));
+      card.setLayoutY(baseHeight + (j * height));
       r++;
-      if (r == 7) r = 0;
-      if (i % 8 == 0 && i != 0) j++;
-      card.setMouseTransparent(false);
+      if (r == 12) {
+        r = 0;
+        j++;
+      }
       getChildren().add(card);
       System.out.println("Placed " + card.getName() + " to up.");
     }
@@ -85,9 +87,7 @@ public class Game extends Pane {
 
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
-        System.out.println("Clicked!");
         Card card = (Card) e.getSource();
-
         if (cardsFacedUp.size() < 2) {
           card.flip();
           cardsFacedUp.add(card);
@@ -96,7 +96,7 @@ public class Game extends Pane {
         }
 
         card.setMouseTransparent(false);
-        System.out.println("Placed " + card + " to up.");
+        System.out.println("Flipped " + card.getName());
       };
 
   private void handleGuessAttempt() {
