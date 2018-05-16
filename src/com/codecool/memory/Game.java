@@ -3,6 +3,8 @@ package com.codecool.memory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -88,13 +90,11 @@ public class Game extends Pane {
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
         Card card = (Card) e.getSource();
-        if (cardsFacedUp.size() < 2) {
-          card.flip();
-          cardsFacedUp.add(card);
-        } else if (cardsFacedUp.size() == 2) {
-          handleGuessAttempt();
+        card.flip();          
+        if (cardsFacedUp.size() == 2) {
+          if (!cardsFacedUp.contains(card)) handleGuessAttempt();         
         }
-
+        cardsFacedUp.add(card);        
         card.setMouseTransparent(false);
         System.out.println("Flipped " + card.getName());
       };
@@ -102,7 +102,6 @@ public class Game extends Pane {
   private void handleGuessAttempt() {
     Card card1 = cardsFacedUp.get(0);
     Card card2 = cardsFacedUp.get(1);
-    System.out.print(card1.getName() + "SSSSSSSSSSSSSSSSSSS" + card2.getName());
     if (card1.getName() == card2.getName()) {
       handleRightGuess();
     } else {
@@ -112,9 +111,11 @@ public class Game extends Pane {
   }
 
   private void handleWrongGuess(Card card1, Card card2) {
+    if (card1.getIsFaceUp() && card2.getIsFaceUp()) {
     card1.flip();
     card2.flip();
     }
+  }
 
   private void handleRightGuess() {
     // remove cards from Pile
