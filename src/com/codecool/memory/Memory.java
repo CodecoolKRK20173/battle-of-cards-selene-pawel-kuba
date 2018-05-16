@@ -25,7 +25,7 @@ public class Memory extends Application {
     mediaPlayer.setVolume(0.5);
 
     Game game = new Game();
-    game.setTableBackground(new Image("table/green.png"));
+    game.setTableBackground(new Image("table/red.png"));
     primaryStage.setTitle("Memory Game");
     primaryStage.setScene(new Scene(game, WINDOW_WIDTH, WINDOW_HEIGHT));
     primaryStage.show();

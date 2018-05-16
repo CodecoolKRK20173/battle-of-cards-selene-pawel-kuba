@@ -1,27 +1,36 @@
 package com.codecool.memory;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.event.EventHandler;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-
-
+import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
+  public Pile stock;
+  private Pile playerPile;
 
   private ArrayList<Card> cardsFacedUp = new ArrayList<>();
 
   public Game() {
     initPiles();
+    System.out.println(stock.getCards());
+    setCardsOnTable();
+    long start = System.nanoTime();
+    // handleGame();
+    long elapsedTime = System.nanoTime() - start;
   }
 
   public void initPiles() {
+    stock = new Pile("stock", 10);
+    Card.createStartPile(stock, 32);
 
-    Pile stock = new Pile("stock", 10);
-    getChildren().add(stock);
+    playerPile = new Pile("playerPile", 0);
+    playerPile.setBlurredBackground();
+    playerPile.setLayoutX(95);
+    playerPile.setLayoutY(20);
   }
 
   public void setTableBackground(Image tableBackground) {
@@ -34,31 +43,51 @@ public class Game extends Pane {
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT)));
   }
-  private EventHandler<MouseEvent> onMouseClickedHandler =
-  e -> {
-    Card card = (Card) e.getSource();
-    if (cardsFacedUp.size() < 2) {
-      card.setIsFaceUp(); 
-      cardsFacedUp.add(card);
-    } 
-    if (cardsFacedUp.size() == 2) {
-      handleGuessAttempt();
+
+  public void setCardsOnTable() {
+    ObservableList<Card> cards = stock.getCards();
+    int j = 0;
+    Card card = cards.get(0);
+    for (int i = 0; i < 32; i++) {
+      card = cards.get(i);
+      card.setLayoutX(20 * (i + 1));
+      card.setLayoutY(20 * (j + 1));
+      if (i % 8 == 0) j++;
+      getChildren().add(card);
     }
     card.setMouseTransparent(false);
     System.out.println("Placed " + card + " to up.");
   };
+  
+
+  public void addCard() {}
+
+  private EventHandler<MouseEvent> onMouseClickedHandler =
+      e -> {
+        Card card = (Card) e.getSource();
+        if (cardsFacedUp.size() < 2) {
+          card.setIsFaceUp();
+          cardsFacedUp.add(card);
+        }
+        if (cardsFacedUp.size() == 2) {
+          handleGuessAttempt();
+        }
+
+        card.setMouseTransparent(false);
+        System.out.println("Placed " + card + " to up.");
+      };
 
   private void handleGuessAttempt() {
     Card card1 = cardsFacedUp.get(0);
     Card card2 = cardsFacedUp.get(1);
-    if (card1.getName() == card2.getName()){
+    if (card1.getName() == card2.getName()) {
       handleRightGuess();
     } else {
       handleWrongGuess();
     }
   }
 
-  private void handleWrongGuess(){
+  private void handleWrongGuess() {
     for (int i = 0; i > cardsFacedUp.size(); i++) {
       Card cardFacedUp = cardsFacedUp.get(i);
       cardsFacedUp.remove(cardFacedUp);
@@ -66,10 +95,7 @@ public class Game extends Pane {
     }
   }
 
-  private void handleRightGuess(){
+  private void handleRightGuess() {
     // remove cards from Pile
   }
-
-  
-
 }
