@@ -7,12 +7,12 @@ import javafx.scene.paint.Color;
 
 public class Card extends ImageView {
   private int cardName;
-  private boolean isFaceUp = true;
+  private boolean isFaceUp = false;
   private Image frontImage;
   private Image backImage;
   private DropShadow dropShadow;
-  public static final int WIDTH = 65;
-  public static final int HEIGHT = 100;
+  public static final int WIDTH = 80;
+  public static final int HEIGHT = 120;
 
   public Card(int name) {
     this.cardName = name;

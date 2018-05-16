@@ -56,17 +56,22 @@ public class Game extends Pane {
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-
+    int width = 80;
+    int height = 120;
+    int r = 0;
+    int margin = 10;
     for (int i = 0; i < 32; i++) {
       Card card = cards.get(i);
-      card.setLayoutX(20 * (i + 1));
-      card.setLayoutY(20 * (j + 1));
-      if (i % 8 == 0) j++;
-      getChildren().add(card);
+      card.setLayoutX(width + (r * width));
+      card.setLayoutY(height + (j * height));
+      r++;
+      if (r == 7) r = 0;
+      if (i % 8 == 0 && i != 0) j++;
       card.setMouseTransparent(false);
+      getChildren().add(card);
       System.out.println("Placed " + card.getName() + " to up.");
     }
-  };
+  }
 
   public void addCard() {}
 
