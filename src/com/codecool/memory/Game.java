@@ -91,11 +91,8 @@ public class Game extends Pane {
         if (cardsFacedUp.size() < 2) {
           card.flip();
           cardsFacedUp.add(card);
-        }
-        if (cardsFacedUp.size() == 2) {
-
+        } else if (cardsFacedUp.size() == 2) {
           handleGuessAttempt();
-          cardsFacedUp.clear();
         }
 
         card.setMouseTransparent(false);
@@ -105,20 +102,19 @@ public class Game extends Pane {
   private void handleGuessAttempt() {
     Card card1 = cardsFacedUp.get(0);
     Card card2 = cardsFacedUp.get(1);
+    System.out.print(card1.getName() + "SSSSSSSSSSSSSSSSSSS" + card2.getName());
     if (card1.getName() == card2.getName()) {
       handleRightGuess();
     } else {
-      handleWrongGuess();
+      handleWrongGuess(card1, card2);
     }
+    cardsFacedUp.clear();
   }
 
-  private void handleWrongGuess() {
-    for (int i = 0; i > cardsFacedUp.size(); i++) {
-      Card cardFacedUp = cardsFacedUp.get(i);
-      cardsFacedUp.remove(cardFacedUp);
-      cardFacedUp.flip();
+  private void handleWrongGuess(Card card1, Card card2) {
+    card1.flip();
+    card2.flip();
     }
-  }
 
   private void handleRightGuess() {
     // remove cards from Pile
