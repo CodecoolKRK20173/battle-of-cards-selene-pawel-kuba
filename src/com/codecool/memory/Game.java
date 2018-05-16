@@ -18,7 +18,6 @@ public class Game extends Pane {
 
   public Game() {
     initPiles();
-    System.out.println(stock.getCards());
     setCardsOnTable();
     cardsNames(stock);
     dealCards();
@@ -28,7 +27,6 @@ public class Game extends Pane {
     Iterator<Card> deckIterator = stock.getCards().iterator();
     deckIterator.forEachRemaining(
         card -> {
-          System.out.println("beniz");
           card.setOnMouseClicked(onMouseClickedHandler);
         });
   }
@@ -85,9 +83,7 @@ public class Game extends Pane {
 
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
-        System.out.println("Clicked!");
         Card card = (Card) e.getSource();
-
         if (cardsFacedUp.size() < 2) {
           card.flip();
           cardsFacedUp.add(card);
@@ -99,7 +95,7 @@ public class Game extends Pane {
         }
 
         card.setMouseTransparent(false);
-        System.out.println("Placed " + card + " to up.");
+        System.out.println("Flipped " + card.getName());
       };
 
   private void handleGuessAttempt() {
