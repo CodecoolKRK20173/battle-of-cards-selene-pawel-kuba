@@ -18,10 +18,27 @@ public class Card extends ImageView {
   public static final int HEIGHT = 210;
 
   public Card(int name) {
-    this.cardName = cardName;
+    this.cardName = name;
     this.dropShadow = new DropShadow(2, Color.gray(0, 0.80));
+    frontImage = new Image("/resources/MahjongImages/" + name + ".png");
+    backImage = new Image("/resources/MahjongImages/skull.png");
     setEffect(dropShadow);
     setImage(isFaceUp ? frontImage : backImage);
+  }
+
+  public List<Card> createStartPile(int numberOfPairs) {
+    List<Card> result = new ArrayList<>();
+    for (int i = numberOfPairs; i > 0; i--) {
+      result.add(new Card(i));
+      result.add(new Card(i));
+    }
+    Collections.shuffle(result);
+    return result;
+  }
+
+  public void flip() {
+    isFaceUp = !isFaceUp;
+    setImage(isFaceUp ? backImage : frontImage);
   }
 
   public boolean getIsFaceUp() {
@@ -35,21 +52,5 @@ public class Card extends ImageView {
   public void setIsFaceUp() {
     isFaceUp = !isFaceUp;
     setImage(isFaceUp ? frontImage : backImage);
-  }
-
-  public void flip() {
-    isFaceUp = !isFaceUp;
-    setImage(isFaceUp ? backImage : frontImage);
-  }
-
-  
-  public List<Card> createStartPile(int numberOfPairs) {
-    List<Card> result = new ArrayList<>();
-    for (int i = numberOfPairs; i > 0; i--) {
-      result.add(new Card(i));
-      result.add(new Card(i));
-    }
-    Collections.shuffle(result);
-    return result;
   }
 }
