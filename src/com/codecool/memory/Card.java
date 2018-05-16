@@ -15,9 +15,11 @@ public class Card extends ImageView {
   public static final int HEIGHT = 100;
 
   public Card(int name) {
-    this.cardName = cardName;
+    this.cardName = name;
     this.dropShadow = new DropShadow(2, Color.gray(0, 0.80));
     setEffect(dropShadow);
+    frontImage = new Image("Images/1.png");
+    backImage = new Image("Images/skull.png");
     setImage(isFaceUp ? frontImage : backImage);
   }
 
@@ -35,11 +37,10 @@ public class Card extends ImageView {
   }
 
   public static void createStartPile(Pile pile, int numberOfPairs) {
-    for (int i = numberOfPairs; i > 0; i--) {
+    for (int i = 0; i < numberOfPairs; i++) {
       pile.addCard(new Card(i));
       pile.addCard(new Card(i));
     }
-    pile.shufflePile();
   }
 
   public void moveCard(Pile stock, Pile destPile) {

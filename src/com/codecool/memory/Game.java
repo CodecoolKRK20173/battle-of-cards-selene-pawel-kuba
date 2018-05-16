@@ -18,9 +18,18 @@ public class Game extends Pane {
     initPiles();
     System.out.println(stock.getCards());
     setCardsOnTable();
+    cardsNames(stock);
+
     long start = System.nanoTime();
     // handleGame();
     long elapsedTime = System.nanoTime() - start;
+  }
+
+  public void cardsNames(Pile pile) {
+    ObservableList<Card> cards = pile.getCards();
+    for (Card c : cards) {
+      System.out.println(c.getName());
+    }
   }
 
   public void initPiles() {
@@ -47,18 +56,17 @@ public class Game extends Pane {
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-    Card card = cards.get(0);
+
     for (int i = 0; i < 32; i++) {
-      card = cards.get(i);
+      Card card = cards.get(i);
       card.setLayoutX(20 * (i + 1));
       card.setLayoutY(20 * (j + 1));
       if (i % 8 == 0) j++;
       getChildren().add(card);
+      card.setMouseTransparent(false);
+      System.out.println("Placed " + card.getName() + " to up.");
     }
-    card.setMouseTransparent(false);
-    System.out.println("Placed " + card + " to up.");
   };
-  
 
   public void addCard() {}
 
