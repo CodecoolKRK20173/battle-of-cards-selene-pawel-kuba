@@ -1,6 +1,8 @@
 package com.codecool.memory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -11,18 +13,22 @@ import javafx.scene.layout.Pane;
 public class Game extends Pane {
   public Pile stock;
   private Pile playerPile;
-
+  private List<Card> deck = new ArrayList<>();
   private ArrayList<Card> cardsFacedUp = new ArrayList<>();
 
   public Game() {
     initPiles();
-    System.out.println(stock.getCards());
     setCardsOnTable();
     cardsNames(stock);
+    dealCards();
+  }
 
-    long start = System.nanoTime();
-    // handleGame();
-    long elapsedTime = System.nanoTime() - start;
+  public void dealCards() {
+    Iterator<Card> deckIterator = stock.getCards().iterator();
+    deckIterator.forEachRemaining(
+        card -> {
+          card.setOnMouseClicked(onMouseClickedHandler);
+        });
   }
 
   public void cardsNames(Pile pile) {
@@ -83,15 +89,17 @@ public class Game extends Pane {
       e -> {
         Card card = (Card) e.getSource();
         if (cardsFacedUp.size() < 2) {
-          card.setIsFaceUp();
+          card.flip();
           cardsFacedUp.add(card);
         }
         if (cardsFacedUp.size() == 2) {
+
           handleGuessAttempt();
+          cardsFacedUp.clear();
         }
 
         card.setMouseTransparent(false);
-        System.out.println("Placed " + card + " to up.");
+        System.out.println("Flipped " + card.getName());
       };
 
   private void handleGuessAttempt() {
