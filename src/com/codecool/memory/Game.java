@@ -21,12 +21,12 @@ public class Game extends Pane {
     stock.shufflePile();
     setCardsOnTable();
     cardsNames(stock);
-    dealCards();
+    mouseClick();
   }
 
-  public void dealCards() {
-    Iterator<Card> deckIterator = stock.getCards().iterator();
-    deckIterator.forEachRemaining(
+  public void mouseClick() {
+    Iterator<Card> stockIterator = stock.getCards().iterator();
+    stockIterator.forEachRemaining(
         card -> {
           card.setOnMouseClicked(onMouseClickedHandler);
         });
