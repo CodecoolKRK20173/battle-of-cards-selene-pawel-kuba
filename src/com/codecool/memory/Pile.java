@@ -13,7 +13,6 @@ public class Pile extends Pane {
   private ObservableList<Card> cards = FXCollections.observableArrayList();
 
   public Pile(String name, double cardGap) {
-
     this.cardGap = cardGap;
   }
 
@@ -56,5 +55,10 @@ public class Pile extends Pane {
     GaussianBlur gaussianBlur = new GaussianBlur(10);
     setBackground(background);
     setEffect(gaussianBlur);
+  }
+
+  public Card getTopCard() {
+    if (cards.isEmpty()) return null;
+    else return cards.get(cards.size() - 1);
   }
 }
