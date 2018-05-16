@@ -7,9 +7,9 @@ import javafx.scene.media.MediaPlayer;
 
 public class Music {
 
-  private final String musicFile = "resources/Music/dreams_become_real.mp3";
-  private Media sound = new Media(new File(musicFile).toURI().toString());
-  private MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    private final String musicFile = "resources/Music/dreams_become_real.mp3";
+    private Media sound = new Media(new File(musicFile).toURI().toString());
+    private MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
   public Music() {
     playCardSound("flip.wav");

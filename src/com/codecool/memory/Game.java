@@ -15,6 +15,8 @@ public class Game extends Pane {
   private Pile playerPile;
   private List<Card> deck = new ArrayList<>();
   private ArrayList<Card> cardsFacedUp = new ArrayList<>();
+  private Music sound = new Music();
+  private int pairs;
 
   public Game() {
     initPiles();
@@ -89,23 +91,31 @@ public class Game extends Pane {
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
         Card card = (Card) e.getSource();
+        sound.playCardSound("flip.wav");
         card.flip();
-        if (cardsFacedUp.size() == 2) {
-          if (!cardsFacedUp.contains(card)) handleGuessAttempt();
+        if (cardsFacedUp.size() == 0){
+          cardsFacedUp.add(card);  
+         } else{
+          cardsFacedUp.add(card);  
+        
+          handleGuessAttempt(card);         
         }
-        cardsFacedUp.add(card);
+                     
+      
+        
         card.setMouseTransparent(false);
         System.out.println("Flipped " + card.getName());
       };
 
-  private void handleGuessAttempt() {
+  private void handleGuessAttempt(Card card) {
     Card card1 = cardsFacedUp.get(0);
     Card card2 = cardsFacedUp.get(1);
     if (card1.getName() == card2.getName()) {
       handleRightGuess();
-    } else {
+      
+    } else if (cardsFacedUp.size() > 1) {
       handleWrongGuess(card1, card2);
-    }
+    } 
     cardsFacedUp.clear();
   }
 
@@ -117,6 +127,7 @@ public class Game extends Pane {
   }
 
   private void handleRightGuess() {
-    // remove cards from Pile
+    pairs += 1;
+    sound.playCardSound("pair.wav");
   }
 }
