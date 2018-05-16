@@ -3,8 +3,6 @@ package com.codecool.memory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -20,6 +18,7 @@ public class Game extends Pane {
 
   public Game() {
     initPiles();
+    stock.shufflePile();
     setCardsOnTable();
     cardsNames(stock);
     dealCards();
@@ -40,7 +39,7 @@ public class Game extends Pane {
 
   public void initPiles() {
     stock = new Pile("stock", 10);
-    Card.createStartPile(stock, 32);
+    Card.createStartPile(stock, 30);
 
     playerPile = new Pile("playerPile", 0);
     playerPile.setBlurredBackground();
@@ -62,10 +61,10 @@ public class Game extends Pane {
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-    int baseWidth = 200;
-    int width = 73;
+    int baseWidth = 175;
+    int width = 81;
     int baseHeight = 75;
-    int height = 110;
+    int height = 115;
     int r = 0;
     double margin = 0;
     for (int i = 0; i < 60; i++) {
@@ -87,11 +86,11 @@ public class Game extends Pane {
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
         Card card = (Card) e.getSource();
-        card.flip();          
+        card.flip();
         if (cardsFacedUp.size() == 2) {
-          if (!cardsFacedUp.contains(card)) handleGuessAttempt();         
+          if (!cardsFacedUp.contains(card)) handleGuessAttempt();
         }
-        cardsFacedUp.add(card);        
+        cardsFacedUp.add(card);
         card.setMouseTransparent(false);
         System.out.println("Flipped " + card.getName());
       };
@@ -109,8 +108,8 @@ public class Game extends Pane {
 
   private void handleWrongGuess(Card card1, Card card2) {
     if (card1.getIsFaceUp() && card2.getIsFaceUp()) {
-    card1.flip();
-    card2.flip();
+      card1.flip();
+      card2.flip();
     }
   }
 
