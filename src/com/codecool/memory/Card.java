@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class Card extends ImageView {
   private int cardName;
-  private boolean isFaceUp = false;
+  private boolean isFaceUp = true;
   private Image frontImage;
   private Image backImage;
   private DropShadow dropShadow;
@@ -17,10 +17,11 @@ public class Card extends ImageView {
   public Card(int name) {
     this.cardName = name;
     this.dropShadow = new DropShadow(2, Color.gray(0, 0.80));
-    setEffect(dropShadow);
-    frontImage = new Image("Images/1.png");
+    System.out.println(Integer.toString(name).getClass());
+    frontImage = new Image("Images/" + Integer.toString(name + 1) + ".png");
     backImage = new Image("Images/skull.png");
     setImage(isFaceUp ? frontImage : backImage);
+    setEffect(dropShadow);
   }
 
   public boolean getIsFaceUp() {
@@ -29,6 +30,12 @@ public class Card extends ImageView {
 
   public int getName() {
     return cardName;
+  }
+
+  public String nameAsString(int name) {
+    StringBuilder str = new StringBuilder();
+    str.append(name);
+    return str.toString();
   }
 
   public void setIsFaceUp() {
