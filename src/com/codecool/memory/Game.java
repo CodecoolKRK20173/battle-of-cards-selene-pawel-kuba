@@ -1,13 +1,18 @@
 package com.codecool.memory;
 
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 
 public class Game extends Pane {
   public Pile stock;
   private Pile playerPile;
+
+  private ArrayList<Card> cardsFacedUp = new ArrayList();
 
   public Game() {
     initPiles();
@@ -49,4 +54,41 @@ public class Game extends Pane {
   }
 
   public void addCard() {}
+
+  private EventHandler<MouseEvent> onMouseClickedHandler =
+      e -> {
+        Card card = (Card) e.getSource();
+        if (cardsFacedUp.size() < 2) {
+          card.setIsFaceUp();
+          cardsFacedUp.add(card);
+        }
+        if (cardsFacedUp.size() == 2) {
+          handleGuessAttempt();
+        }
+
+        card.setMouseTransparent(false);
+        System.out.println("Placed " + card + " to up.");
+      };
+
+  private void handleGuessAttempt() {
+    Card card1 = cardsFacedUp.get(0);
+    Card card2 = cardsFacedUp.get(1);
+    if (card1.getName() == card2.getName()) {
+      handleRightGuess();
+    } else {
+      handleWrongGuess();
+    }
+  }
+
+  private void handleWrongGuess() {
+    for (int i = 0; i > cardsFacedUp.size(); i++) {
+      Card cardFacedUp = cardsFacedUp.get(i);
+      cardsFacedUp.remove(cardFacedUp);
+      cardFacedUp.flip();
+    }
+  }
+
+  private void handleRightGuess() {
+    // remove cards from Pile
+  }
 }

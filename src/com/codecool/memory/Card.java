@@ -43,7 +43,6 @@ public class Card extends ImageView {
   }
 
   public void moveCard(Pile stock, Pile destPile) {
-    //  this.stock.remove(this);
-    //  destPile.addCard(this);
+    //  this.stock.remove(thi  destPile.addCard(this);
   }
 }
