@@ -17,7 +17,6 @@ public class Card extends ImageView {
   public Card(int name) {
     this.cardName = name;
     this.dropShadow = new DropShadow(2, Color.gray(0, 0.80));
-    System.out.println(Integer.toString(name).getClass());
     frontImage = new Image("Images/" + Integer.toString(name + 1) + ".png");
     backImage = new Image("Images/skull.png");
     setImage(isFaceUp ? frontImage : backImage);
