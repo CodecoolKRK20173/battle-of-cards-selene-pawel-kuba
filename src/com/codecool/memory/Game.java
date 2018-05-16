@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 public class Game extends Pane {
 
-  private ArrayList<Card> cardsFacedUp = new ArrayList();
+  private ArrayList<Card> cardsFacedUp = new ArrayList<>();
 
   public Game() {
     initPiles();
@@ -44,7 +44,6 @@ public class Game extends Pane {
     if (cardsFacedUp.size() == 2) {
       handleGuessAttempt();
     }
-    
     card.setMouseTransparent(false);
     System.out.println("Placed " + card + " to up.");
   };
