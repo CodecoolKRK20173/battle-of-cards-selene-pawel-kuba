@@ -1,8 +1,5 @@
 package com.codecool.memory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,8 +11,8 @@ public class Card extends ImageView {
   private Image frontImage;
   private Image backImage;
   private DropShadow dropShadow;
-  public static final int WIDTH = 150;
-  public static final int HEIGHT = 210;
+  public static final int WIDTH = 65;
+  public static final int HEIGHT = 100;
 
   public Card(int name) {
     this.cardName = cardName;
@@ -37,13 +34,16 @@ public class Card extends ImageView {
     setImage(isFaceUp ? frontImage : backImage);
   }
 
-  public List<Card> createStartPile(int numberOfPairs) {
-    List<Card> result = new ArrayList<>();
+  public static void createStartPile(Pile pile, int numberOfPairs) {
     for (int i = numberOfPairs; i > 0; i--) {
-      result.add(new Card(i));
-      result.add(new Card(i));
+      pile.addCard(new Card(i));
+      pile.addCard(new Card(i));
     }
-    Collections.shuffle(result);
-    return result;
+    pile.shufflePile();
+  }
+
+  public void moveCard(Pile stock, Pile destPile) {
+    //  this.stock.remove(this);
+    //  destPile.addCard(this);
   }
 }
