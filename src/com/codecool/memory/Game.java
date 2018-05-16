@@ -33,9 +33,7 @@ public class Game extends Pane {
 
   public void cardsNames(Pile pile) {
     ObservableList<Card> cards = pile.getCards();
-    for (Card c : cards) {
-      System.out.println(c.getName());
-    }
+    for (Card c : cards) {}
   }
 
   public void initPiles() {
@@ -79,7 +77,6 @@ public class Game extends Pane {
         j++;
       }
       getChildren().add(card);
-      System.out.println("Placed " + card.getName() + " to up.");
     }
   }
 
