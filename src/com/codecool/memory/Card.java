@@ -38,11 +38,6 @@ public class Card extends ImageView {
     return str.toString();
   }
 
-  public void setIsFaceUp() {
-    isFaceUp = !isFaceUp;
-    setImage(isFaceUp ? frontImage : backImage);
-  }
-
   public static void createStartPile(Pile pile, int numberOfPairs) {
     for (int i = 0; i < numberOfPairs; i++) {
       pile.addCard(new Card(i));

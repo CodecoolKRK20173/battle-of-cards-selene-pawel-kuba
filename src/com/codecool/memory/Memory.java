@@ -9,6 +9,7 @@ public class Memory extends Application {
   private final double WINDOW_WIDTH = 1400;
   private final double WINDOW_HEIGHT = 900;
   private Music music;
+  private boolean winCondition;
 
   public static void main(String[] args) {
     launch(args);
