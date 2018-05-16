@@ -11,20 +11,6 @@ public class Music {
     private Media sound = new Media(new File(musicFile).toURI().toString());
     private MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
-    
-    public Music() {
-        playMusic();
-    }
-    public Music(String soundName) {
-        playCardSound(soundName);        
-    }
-
-    public void playMusic() {
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
-        mediaPlayer.setVolume(0.5);
-    }
-
   public Music() {
     playCardSound("flip.wav");
 
