@@ -20,6 +20,7 @@ public class Game extends Pane {
 
   public Game() {
     initPiles();
+    stock.shufflePile();
     setCardsOnTable();
     cardsNames(stock);
     dealCards();
@@ -40,12 +41,17 @@ public class Game extends Pane {
 
   public void initPiles() {
     stock = new Pile("stock", 10);
-    Card.createStartPile(stock, 32);
+    Card.createStartPile(stock, 30);
 
     playerPile = new Pile("playerPile", 0);
     playerPile.setBlurredBackground();
     playerPile.setLayoutX(95);
     playerPile.setLayoutY(20);
+  }
+
+  public boolean isWon() {
+    if (playerPile.getCards().size() == 60) return true;
+    return false;
   }
 
   public void setTableBackground(Image tableBackground) {
@@ -62,10 +68,10 @@ public class Game extends Pane {
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-    int baseWidth = 200;
-    int width = 73;
+    int baseWidth = 175;
+    int width = 81;
     int baseHeight = 75;
-    int height = 110;
+    int height = 115;
     int r = 0;
     double margin = 0;
     for (int i = 0; i < 60; i++) {
@@ -81,8 +87,6 @@ public class Game extends Pane {
       getChildren().add(card);
     }
   }
-
-  public void addCard() {}
 
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {

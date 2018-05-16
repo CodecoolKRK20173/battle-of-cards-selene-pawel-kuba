@@ -11,7 +11,7 @@ public class Card extends ImageView {
   private Image frontImage;
   private Image backImage;
   private DropShadow dropShadow;
-  public static final int WIDTH = 63;
+  public static final int WIDTH = 66;
   public static final int HEIGHT = 100;
 
   public Card(int name) {
