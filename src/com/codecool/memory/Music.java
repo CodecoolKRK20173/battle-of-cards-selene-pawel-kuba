@@ -16,10 +16,10 @@ public class Music {
 
     
     public Music() {
-        playCardSound("flip.wav");
-
         playMusic();
-
+    }
+    public Music(String soundName) {
+        playCardSound(soundName);        
     }
 
     public void playMusic() {
