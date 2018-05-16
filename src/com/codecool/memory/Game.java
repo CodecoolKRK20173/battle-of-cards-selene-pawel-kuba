@@ -47,6 +47,11 @@ public class Game extends Pane {
     playerPile.setLayoutY(20);
   }
 
+  public boolean isWon() {
+    if (playerPile.getCards().size() == 60) return true;
+    return false;
+  }
+
   public void setTableBackground(Image tableBackground) {
     setBackground(
         new Background(
@@ -80,8 +85,6 @@ public class Game extends Pane {
       getChildren().add(card);
     }
   }
-
-  public void addCard() {}
 
   private EventHandler<MouseEvent> onMouseClickedHandler =
       e -> {
