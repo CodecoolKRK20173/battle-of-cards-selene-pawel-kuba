@@ -18,6 +18,9 @@ public class Game extends Pane {
     initPiles();
     System.out.println(stock.getCards());
     setCardsOnTable();
+    long start = System.nanoTime();
+    // handleGame();
+    long elapsedTime = System.nanoTime() - start;
   }
 
   public void initPiles() {
