@@ -19,6 +19,7 @@ public class Pile extends Pane {
     return name;
   }
 
+
   public ObservableList<Card> getCards() {
     return cards;
   }

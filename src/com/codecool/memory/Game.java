@@ -27,16 +27,14 @@ public class Game extends Pane {
   private long finalTime;
   private long startTime;
 
-  public Game() {
-    selectGameDifficulty();
-
-    initPiles();
-    // stock.shufflePile();
-    setCardsOnTable();
-    startTime = System.nanoTime();
-
+  public Game(GameMode mode) {
+    initPiles(mode.getNumOfCards());
+    setCardsOnTable(mode.getAllStats());
+    startTime = System.nanoTime();    
     mouseClick();
   }
+
+ 
 
   public void mouseClick() {
     Iterator<Card> stockIterator = stock.getCards().iterator();
@@ -46,14 +44,16 @@ public class Game extends Pane {
         });
   }
 
-  public void initPiles() {
+  public void initPiles(int numOfCards) {
     stock = new Pile("stock");
-    Card.createStartPile(stock, 30);
+    
+    Card.createStartPile(stock, numOfCards);
 
     playerPile = new Pile("playerPile");
     playerPile.setBlurredBackground();
     playerPile.setLayoutX(95);
     playerPile.setLayoutY(20);
+    stock.shufflePile();
   }
 
   public boolean isWon() {
@@ -76,22 +76,26 @@ public class Game extends Pane {
                 BackgroundSize.DEFAULT)));
   }
 
-  public void setCardsOnTable() {
+  public void setCardsOnTable(ArrayList<Integer> allStats) {
+    int baseWidth = allStats.get(0);
+    int baseHeight = allStats.get(1);
+    int numOfCards = allStats.get(2);
+    int numOfRows = allStats.get(3);
+    int width = allStats.get(4);
+    
+
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
-    int baseWidth = 175;
-    int width = 81;
-    int baseHeight = 75;
     int height = 115;
     int r = 0;
     double margin = 0;
-    for (int i = 0; i < 60; i++) {
+    for (int i = 0; i < 2*numOfCards; i++) {
       Card card = cards.get(i);
 
       card.setLayoutX(baseWidth + (r * width));
       card.setLayoutY(baseHeight + (j * height));
       r++;
-      if (r == 12) {
+      if (r == numOfRows) {
         r = 0;
         j++;
       }
@@ -141,29 +145,13 @@ public class Game extends Pane {
     alert.setContentText("Do you want to play again?");
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      initPiles();
-      setCardsOnTable();
+      //initPiles(easy.numOfCards);
+      //setCardsOnTable(easy.getAllStats());
       mouseClick();
       startTime = System.nanoTime();
     } else {
       System.exit(0);
     }
-  }
-
-  private String selectGameDifficulty() {
-    List<String> choices = new ArrayList<String>();
-    choices.add("Easy");
-    choices.add("Medium");
-    choices.add("Insane");
-    ChoiceDialog<String> dialog = new ChoiceDialog<>("Easy", choices);
-    dialog.setTitle("Select game difficulty");
-    dialog.setHeaderText("Please specify game difficulty from list below");
-    dialog.setContentText("Difficult: ");
-    Optional<String> result = dialog.showAndWait();
-    if (result.isPresent()) {
-      System.out.println(result.get());
-    }
-    return result.get();
   }
 
   private void scoreCard(int index) {
@@ -178,4 +166,7 @@ public class Game extends Pane {
   private boolean isPairUnique() {
     return (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode());
   }
+
+
+
 }
