@@ -3,8 +3,12 @@ package com.codecool.memory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,11 +24,15 @@ public class Game extends Pane {
   private final int PAIR = 2;
   private final int INDEX0 = 0;
   private final int INDEX1 = 1;
+  private long finalTime;
+  private long startTime;
 
   public Game() {
     initPiles();
-    //stock.shufflePile();
+    // stock.shufflePile();
     setCardsOnTable();
+    startTime = System.nanoTime();
+
     cardsNames(stock);
     mouseClick();
   }
@@ -55,6 +63,7 @@ public class Game extends Pane {
   public boolean isWon() {
     if (playerPile.getCards().size() == 60) {
       System.out.println("You won!");
+      finalTime = System.nanoTime() - startTime;
       return true;
     }
     return false;
@@ -102,7 +111,6 @@ public class Game extends Pane {
         card.flip();
         cardsFacedUp.add(card);
         handleProperCards();
-
       };
 
   private void flipWrongCards() {
@@ -121,27 +129,46 @@ public class Game extends Pane {
         scoreCard(INDEX1);
         cardsFacedUp.clear();
       }
-      isWon();
+      if (isWon()) showWonMessage();
+    }
+  }
+
+  private void showWonMessage() {
+    createWonAlert();
+  }
+
+  private void createWonAlert() {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("You won!");
+    alert.setHeaderText("You won a game! Your time is: " + (finalTime / 1000000000) + " seconds!");
+    alert.setContentText("Do you want to play again?");
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      initPiles();
+      setCardsOnTable();
+      mouseClick();
+      startTime = System.nanoTime();
+    } else {
+      System.exit(0);
     }
   }
 
   private void scoreCard(int index) {
     cardsFacedUp.get(index).moveCard(stock, playerPile);
     getChildren().remove(cardsFacedUp.get(index));
-    
   }
 
-  private boolean isPair(){
+  private boolean isPair() {
     if (cardsFacedUp.get(INDEX0).compareTo(cardsFacedUp.get(INDEX1)) == 0) {
       return true;
     }
     return false;
-  } 
+  }
 
   private boolean isPairUnique() {
     if (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode()) {
-       return true;
+      return true;
     }
-      return false;
+    return false;
   }
 }
