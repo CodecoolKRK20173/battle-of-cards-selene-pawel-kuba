@@ -92,19 +92,26 @@ public class Game extends Pane {
       e -> {
         Card card = (Card) e.getSource();
         sound.playCardSound("flip.wav");
-        card.flip();
-        if (cardsFacedUp.size() == 0){
-          cardsFacedUp.add(card);  
-         } else{
-          cardsFacedUp.add(card);  
-        
-          handleGuessAttempt(card);         
+
+        if (cardsFacedUp.size() == 2) {
+          cardsFacedUp.get(0).flip();
+          cardsFacedUp.get(1).flip();
+          cardsFacedUp.clear();
         }
-                     
-      
-        
-        card.setMouseTransparent(false);
-        System.out.println("Flipped " + card.getName());
+        card.flip();
+        cardsFacedUp.add(card);
+        if (cardsFacedUp.size() == 2) {
+          if (cardsFacedUp.get(0).getName() == cardsFacedUp.get(1).getName()
+              && !cardsFacedUp.get(0).equals(cardsFacedUp.get(1))) {
+            sound.playCardSound("pair.wav");
+            cardsFacedUp.clear();
+          }
+          for (int i = 0; i < cardsFacedUp.size(); i++) {
+            System.out.print(i);
+            System.out.print(" karta ");
+            System.out.println(cardsFacedUp.get(i).getName());
+          }
+        }
       };
 
   private void handleGuessAttempt(Card card) {
@@ -112,17 +119,16 @@ public class Game extends Pane {
     Card card2 = cardsFacedUp.get(1);
     if (card1.getName() == card2.getName()) {
       handleRightGuess();
-      
-    } else if (cardsFacedUp.size() > 1) {
+
+    } else {
       handleWrongGuess(card1, card2);
-    } 
-    cardsFacedUp.clear();
+    }
   }
 
   private void handleWrongGuess(Card card1, Card card2) {
     if (card1.getIsFaceUp() && card2.getIsFaceUp()) {
-      card1.flip();
-      card2.flip();
+      // card1.flip();
+      // card2.flip();
     }
   }
 
