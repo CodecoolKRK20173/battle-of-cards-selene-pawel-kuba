@@ -113,27 +113,4 @@ public class Game extends Pane {
           }
         }
       };
-
-  private void handleGuessAttempt(Card card) {
-    Card card1 = cardsFacedUp.get(0);
-    Card card2 = cardsFacedUp.get(1);
-    if (card1.getName() == card2.getName()) {
-      handleRightGuess();
-
-    } else {
-      handleWrongGuess(card1, card2);
-    }
-  }
-
-  private void handleWrongGuess(Card card1, Card card2) {
-    if (card1.getIsFaceUp() && card2.getIsFaceUp()) {
-      // card1.flip();
-      // card2.flip();
-    }
-  }
-
-  private void handleRightGuess() {
-    pairs += 1;
-    sound.playCardSound("pair.wav");
-  }
 }
