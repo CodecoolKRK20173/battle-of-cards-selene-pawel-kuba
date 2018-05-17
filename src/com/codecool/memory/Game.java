@@ -113,8 +113,9 @@ public class Game extends Pane {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
     int height = 115;
-    int r = 0;
+    int columnNumber = 0;
     double margin = 0;
+    int r = 0;
     for (int i = 0; i < 2*numOfCards; i++) {
       Card card = cards.get(i);
 
@@ -137,7 +138,6 @@ public class Game extends Pane {
         card.flip();
         cardsFacedUp.add(card);
         handleProperCards();
-        System.out.println("size: " + cardsFacedUp.size());
       };
 
   private void flipWrongCards() {
