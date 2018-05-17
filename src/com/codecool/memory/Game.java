@@ -30,11 +30,10 @@ public class Game extends Pane {
   public Game() {
 
     initPiles();
-    // stock.shufflePile();
+    stock.shufflePile();
     setCardsOnTable();
     startTime = System.nanoTime();
 
-    cardsNames(stock);
     mouseClick();
   }
 
@@ -46,12 +45,11 @@ public class Game extends Pane {
         });
   }
 
-  // liczba kart
   public void initPiles() {
-    stock = new Pile("stock", 10);
+    stock = new Pile("stock");
     Card.createStartPile(stock, 30);
 
-    playerPile = new Pile("playerPile", 0);
+    playerPile = new Pile("playerPile");
     playerPile.setBlurredBackground();
     playerPile.setLayoutX(95);
     playerPile.setLayoutY(20);
@@ -77,7 +75,6 @@ public class Game extends Pane {
                 BackgroundSize.DEFAULT)));
   }
 
-  // i tu
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
@@ -139,6 +136,7 @@ public class Game extends Pane {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("You won!");
     alert.setHeaderText("You won a game! Your time is: " + (finalTime / 1000000000) + " seconds!");
+    alert.showAndWait();
     alert.setContentText("Do you want to play again?");
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
