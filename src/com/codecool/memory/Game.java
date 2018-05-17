@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
+import java.util.HashMap;
 
 public class Game extends Pane {
   public Pile stock;
@@ -27,14 +28,39 @@ public class Game extends Pane {
   private long finalTime;
   private long startTime;
 
-  public Game(GameMode mode) {
+  public Game() {
+    GameMode mode = selectGameDifficulty();
     initPiles(mode.getNumOfCards());
     setCardsOnTable(mode.getAllStats());
     startTime = System.nanoTime();    
     mouseClick();
   }
 
- 
+  private GameMode selectGameDifficulty() {
+    List<String> choices = new ArrayList<String>();
+    choices.add("Easy");
+    choices.add("Medium");
+    choices.add("Insane");
+    ChoiceDialog<String> dialog = new ChoiceDialog<>("Easy", choices);
+    dialog.setTitle("Select game difficulty");
+    dialog.setHeaderText("Please specify game difficulty from list below");
+    dialog.setContentText("Difficult: ");
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent()) {
+      System.out.println(result.get());
+    }
+    String mode = (String) result.get();
+    return gameModeMap().get(mode);
+  }
+
+  private final HashMap<String, GameMode> gameModeMap() {
+    HashMap<String, GameMode> gameModes = new HashMap<>();
+    gameModes.put("Easy", new Easy());
+    gameModes.put("Medium", new Medium());
+    gameModes.put("Insane", new Hard());
+
+    return gameModes;
+  }
 
   public void mouseClick() {
     Iterator<Card> stockIterator = stock.getCards().iterator();
@@ -145,8 +171,9 @@ public class Game extends Pane {
     alert.setContentText("Do you want to play again?");
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      //initPiles(easy.numOfCards);
-      //setCardsOnTable(easy.getAllStats());
+      GameMode mode = selectGameDifficulty();
+      initPiles(mode.getNumOfCards());
+      setCardsOnTable(mode.getAllStats());
       mouseClick();
       startTime = System.nanoTime();
     } else {

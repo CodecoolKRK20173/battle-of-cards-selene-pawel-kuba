@@ -1,5 +1,9 @@
-src/com/codecool/memory/Card.java
-src/com/codecool/memory/Game.java
-src/com/codecool/memory/Memory.java
 src/com/codecool/memory/Music.java
+src/com/codecool/memory/Memory.java
+src/com/codecool/memory/Hard.java
+src/com/codecool/memory/Game.java
+src/com/codecool/memory/Card.java
+src/com/codecool/memory/Medium.java
+src/com/codecool/memory/GameMode.java
 src/com/codecool/memory/Pile.java
+src/com/codecool/memory/Easy.java
