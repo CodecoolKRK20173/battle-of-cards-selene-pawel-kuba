@@ -30,7 +30,7 @@ public class Game extends Pane {
   public Game() {
 
     initPiles();
-    stock.shufflePile();
+    // stock.shufflePile();
     setCardsOnTable();
     startTime = System.nanoTime();
 
@@ -106,6 +106,7 @@ public class Game extends Pane {
         card.flip();
         cardsFacedUp.add(card);
         handleProperCards();
+        System.out.println("size: " + cardsFacedUp.size());
       };
 
   private void flipWrongCards() {
@@ -136,7 +137,6 @@ public class Game extends Pane {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("You won!");
     alert.setHeaderText("You won a game! Your time is: " + (finalTime / 1000000000) + " seconds!");
-    alert.showAndWait();
     alert.setContentText("Do you want to play again?");
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
@@ -155,16 +155,10 @@ public class Game extends Pane {
   }
 
   private boolean isPair() {
-    if (cardsFacedUp.get(INDEX0).compareTo(cardsFacedUp.get(INDEX1)) == 0) {
-      return true;
-    }
-    return false;
+    return (cardsFacedUp.get(INDEX0).compareTo(cardsFacedUp.get(INDEX1)) == 0);
   }
 
   private boolean isPairUnique() {
-    if (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode()) {
-      return true;
-    }
-    return false;
+    return (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode());
   }
 }
