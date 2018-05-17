@@ -90,7 +90,7 @@ public class Game extends Pane {
 
       card.setLayoutX(baseWidth + (columnNumber * width));
       card.setLayoutY(baseHeight + (rowNumber * height));
-      r++;
+      columnNumber++;
       if (columnNumber == 12) {
         columnNumber = 0;
         rowNumber++;
