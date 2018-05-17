@@ -28,6 +28,7 @@ public class Game extends Pane {
   private long startTime;
 
   public Game() {
+    selectGameDifficulty();
 
     initPiles();
     // stock.shufflePile();
@@ -147,6 +148,22 @@ public class Game extends Pane {
     } else {
       System.exit(0);
     }
+  }
+
+  private String selectGameDifficulty() {
+    List<String> choices = new ArrayList<String>();
+    choices.add("Easy");
+    choices.add("Medium");
+    choices.add("Insane");
+    ChoiceDialog<String> dialog = new ChoiceDialog<>("Easy", choices);
+    dialog.setTitle("Select game difficulty");
+    dialog.setHeaderText("Please specify game difficulty from list below");
+    dialog.setContentText("Difficult: ");
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent()) {
+      System.out.println(result.get());
+    }
+    return result.get();
   }
 
   private void scoreCard(int index) {
