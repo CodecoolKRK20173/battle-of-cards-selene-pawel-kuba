@@ -50,7 +50,10 @@ public class Game extends Pane {
   }
 
   public boolean isWon() {
-    if (playerPile.getCards().size() == 60) return true;
+    if (playerPile.getCards().size() == 60) {
+      System.out.println("You won!");
+      return true;
+    }
     return false;
   }
 
@@ -104,13 +107,13 @@ public class Game extends Pane {
           if (cardsFacedUp.get(0).getName() == cardsFacedUp.get(1).getName()
               && !cardsFacedUp.get(0).equals(cardsFacedUp.get(1))) {
             sound.playCardSound("pair.wav");
+            cardsFacedUp.get(0).moveCard(stock, playerPile);
+            cardsFacedUp.get(1).moveCard(stock, playerPile);
+            getChildren().remove(cardsFacedUp.get(0));
+            getChildren().remove(cardsFacedUp.get(1));
             cardsFacedUp.clear();
           }
-          for (int i = 0; i < cardsFacedUp.size(); i++) {
-            System.out.print(i);
-            System.out.print(" karta ");
-            System.out.println(cardsFacedUp.get(i).getName());
-          }
+          isWon();
         }
       };
 }
