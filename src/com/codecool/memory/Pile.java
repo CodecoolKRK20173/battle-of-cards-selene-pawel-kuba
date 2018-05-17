@@ -9,19 +9,14 @@ import javafx.scene.paint.Color;
 public class Pile extends Pane {
 
   private String name;
-  private double cardGap;
   private ObservableList<Card> cards = FXCollections.observableArrayList();
 
-  public Pile(String name, double cardGap) {
-    this.cardGap = cardGap;
+  public Pile(String name) {
+    this.name = name;
   }
 
   public String getName() {
     return name;
-  }
-
-  public double getCardGap() {
-    return cardGap;
   }
 
   public ObservableList<Card> getCards() {

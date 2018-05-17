@@ -1,5 +1,4 @@
 package com.codecool.memory;
-
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
