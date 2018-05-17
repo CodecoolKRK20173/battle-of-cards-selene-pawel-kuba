@@ -2,7 +2,6 @@ package com.codecool.memory;
 import java.util.List;
 import java.util.ArrayList;
 
-
 public abstract class GameMode {
     public  int baseWidth;
     public int baseHeight;

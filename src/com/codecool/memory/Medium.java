@@ -9,6 +9,4 @@ public class Medium extends GameMode {
         this.numOfRows = 6;
         this.width = 120;
     }
-
-
 }

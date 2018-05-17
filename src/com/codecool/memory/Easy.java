@@ -9,6 +9,4 @@ public class Easy extends GameMode {
         this.numOfRows = 4;
         this.width = 140;
     }
-
-
 }

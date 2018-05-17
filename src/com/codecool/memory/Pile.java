@@ -15,17 +15,8 @@ public class Pile extends Pane {
     this.name = name;
   }
 
-  public String getName() {
-    return name;
-  }
-
-
   public ObservableList<Card> getCards() {
     return cards;
-  }
-
-  public int numOfCards() {
-    return cards.size();
   }
 
   public boolean isEmpty() {
@@ -40,10 +31,6 @@ public class Pile extends Pane {
     cards.add(card);
   }
 
-  public void flushPile() {
-    cards.clear();
-  }
-
   public void setBlurredBackground() {
     setPrefSize(Card.WIDTH, Card.HEIGHT);
     BackgroundFill backgroundFill = new BackgroundFill(Color.gray(0.0, 0.2), null, null);
@@ -51,10 +38,5 @@ public class Pile extends Pane {
     GaussianBlur gaussianBlur = new GaussianBlur(10);
     setBackground(background);
     setEffect(gaussianBlur);
-  }
-
-  public Card getTopCard() {
-    if (cards.isEmpty()) return null;
-    else return cards.get(cards.size() - 1);
   }
 }

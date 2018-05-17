@@ -9,6 +9,4 @@ public class Hard extends GameMode {
         this.numOfRows = 12;
         this.width = 81;
     }
-
-
 }

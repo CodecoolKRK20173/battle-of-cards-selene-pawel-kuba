@@ -1,4 +1,5 @@
 package com.codecool.memory;
+
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,12 +35,6 @@ public class Card extends ImageView implements Comparable {
 
   public int getName() {
     return cardName;
-  }
-
-  public String nameAsString(int name) {
-    StringBuilder str = new StringBuilder();
-    str.append(name);
-    return str.toString();
   }
 
   public static void createStartPile(Pile pile, int numberOfPairs) {

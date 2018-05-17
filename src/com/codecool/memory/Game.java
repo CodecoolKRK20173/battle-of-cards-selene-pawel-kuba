@@ -37,28 +37,29 @@ public class Game extends Pane {
   }
 
   private GameMode selectGameDifficulty() {
-    List<String> choices = new ArrayList<String>();
-    choices.add("Easy");
-    choices.add("Medium");
-    choices.add("Insane");
-    ChoiceDialog<String> dialog = new ChoiceDialog<>("Easy", choices);
+    ChoiceDialog<String> dialog = new ChoiceDialog<>("Easy", getChoicesList());
+    showDialogs(dialog);
+    Optional<String> result = dialog.showAndWait();
+    return gameModeMap().get(result.get());
+  }
+
+  private final ArrayList<String> getChoicesList() {
+    ArrayList<String> choices = new ArrayList<String>();
+    choices.addAll(gameModeMap().keySet());
+    return choices;
+  }
+
+  private final void showDialogs(ChoiceDialog<String> dialog) {
     dialog.setTitle("Select game difficulty");
     dialog.setHeaderText("Please specify game difficulty from list below");
     dialog.setContentText("Difficult: ");
-    Optional<String> result = dialog.showAndWait();
-    if (result.isPresent()) {
-      System.out.println(result.get());
-    }
-    String mode = (String) result.get();
-    return gameModeMap().get(mode);
   }
-
+  
   private final HashMap<String, GameMode> gameModeMap() {
     HashMap<String, GameMode> gameModes = new HashMap<>();
     gameModes.put("Easy", new Easy());
     gameModes.put("Medium", new Medium());
     gameModes.put("Insane", new Hard());
-
     return gameModes;
   }
 
@@ -72,9 +73,7 @@ public class Game extends Pane {
 
   public void initPiles(int numOfCards) {
     stock = new Pile("stock");
-    
     Card.createStartPile(stock, numOfCards);
-
     playerPile = new Pile("playerPile");
     playerPile.setBlurredBackground();
     playerPile.setLayoutX(95);
@@ -84,9 +83,7 @@ public class Game extends Pane {
 
   public boolean isWon() {
     if (stock.isEmpty()) {
-      sound.playCardSound("ToiMonAmour.mp3");
-      sound.playCardSound("ToiMonAmour.mp3");
-      
+      sound.playCardSound("ToiMonAmour.mp3");      
       finalTime = System.nanoTime() - startTime;
       return true;
     }
@@ -195,7 +192,4 @@ public class Game extends Pane {
   private boolean isPairUnique() {
     return (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode());
   }
-
-
-
 }
