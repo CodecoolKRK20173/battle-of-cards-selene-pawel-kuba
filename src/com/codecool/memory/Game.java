@@ -107,7 +107,6 @@ public class Game extends Pane {
         card.flip();
         cardsFacedUp.add(card);
         handleProperCards();
-        System.out.println("size: " + cardsFacedUp.size());
       };
 
   private void flipWrongCards() {
@@ -141,6 +140,7 @@ public class Game extends Pane {
     alert.setContentText("Do you want to play again?");
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
+      selectGameDifficulty();
       initPiles();
       setCardsOnTable();
       mouseClick();
