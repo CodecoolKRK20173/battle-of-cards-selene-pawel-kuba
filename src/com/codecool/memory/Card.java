@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public class Card extends ImageView {
+public class Card extends ImageView implements Comparable {
   private int cardName;
   private boolean isFaceUp = false;
   private Image frontImage;
@@ -21,6 +21,12 @@ public class Card extends ImageView {
     backImage = new Image("Images/skull.png");
     setImage(isFaceUp ? frontImage : backImage);
     setEffect(dropShadow);
+  }
+
+  @Override
+  public int compareTo(Object object) {
+    Card card = (Card) object;
+    return Integer.compare(this.cardName, card.getName());
   }
 
   public boolean getIsFaceUp() {

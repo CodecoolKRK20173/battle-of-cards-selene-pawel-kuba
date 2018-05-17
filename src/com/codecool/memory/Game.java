@@ -17,10 +17,13 @@ public class Game extends Pane {
   private ArrayList<Card> cardsFacedUp = new ArrayList<>();
   private Music sound = new Music();
   private int pairs;
+  private final int PAIR = 2;
+  private final int INDEX0 = 0;
+  private final int INDEX1 = 1;
 
   public Game() {
     initPiles();
-    stock.shufflePile();
+    //stock.shufflePile();
     setCardsOnTable();
     cardsNames(stock);
     mouseClick();
@@ -95,25 +98,50 @@ public class Game extends Pane {
       e -> {
         Card card = (Card) e.getSource();
         sound.playCardSound("flip.wav");
-
-        if (cardsFacedUp.size() == 2) {
-          cardsFacedUp.get(0).flip();
-          cardsFacedUp.get(1).flip();
-          cardsFacedUp.clear();
-        }
+        flipWrongCards();
         card.flip();
         cardsFacedUp.add(card);
-        if (cardsFacedUp.size() == 2) {
-          if (cardsFacedUp.get(0).getName() == cardsFacedUp.get(1).getName()
-              && !cardsFacedUp.get(0).equals(cardsFacedUp.get(1))) {
-            sound.playCardSound("pair.wav");
-            cardsFacedUp.get(0).moveCard(stock, playerPile);
-            cardsFacedUp.get(1).moveCard(stock, playerPile);
-            getChildren().remove(cardsFacedUp.get(0));
-            getChildren().remove(cardsFacedUp.get(1));
-            cardsFacedUp.clear();
-          }
-          isWon();
-        }
+        handleProperCards();
+
       };
+
+  private void flipWrongCards() {
+    if (cardsFacedUp.size() == PAIR) {
+      cardsFacedUp.get(INDEX0).flip();
+      cardsFacedUp.get(INDEX1).flip();
+      cardsFacedUp.clear();
+    }
+  }
+
+  private void handleProperCards() {
+    if (cardsFacedUp.size() == PAIR) {
+      if (isPair() && isPairUnique()) {
+        sound.playCardSound("pair.wav");
+        scoreCard(INDEX0);
+        scoreCard(INDEX1);
+        cardsFacedUp.clear();
+      }
+      isWon();
+    }
+  }
+
+  private void scoreCard(int index) {
+    cardsFacedUp.get(index).moveCard(stock, playerPile);
+    getChildren().remove(cardsFacedUp.get(index));
+    
+  }
+
+  private boolean isPair(){
+    if (cardsFacedUp.get(INDEX0).compareTo(cardsFacedUp.get(INDEX1)) == 0) {
+      return true;
+    }
+    return false;
+  } 
+
+  private boolean isPairUnique() {
+    if (cardsFacedUp.get(INDEX0).hashCode() != cardsFacedUp.get(INDEX1).hashCode()) {
+       return true;
+    }
+      return false;
+  }
 }
