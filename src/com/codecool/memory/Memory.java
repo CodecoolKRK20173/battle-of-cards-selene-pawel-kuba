@@ -21,8 +21,8 @@ public class Memory extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    music = new Music();
     Game game = new Game();
+    music = new Music();    
     game.setTableBackground(new Image("table/green.png"));
     primaryStage.getIcons().add(new Image("Images/skull.png"));
     primaryStage.setTitle("Memory Game");

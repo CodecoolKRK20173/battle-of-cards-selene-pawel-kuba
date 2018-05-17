@@ -84,7 +84,9 @@ public class Game extends Pane {
 
   public boolean isWon() {
     if (stock.isEmpty()) {
-      System.out.println("You won!");
+      sound.playCardSound("ToiMonAmour.mp3");
+      sound.playCardSound("ToiMonAmour.mp3");
+      
       finalTime = System.nanoTime() - startTime;
       return true;
     }

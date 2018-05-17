@@ -12,14 +12,14 @@ public class Music {
     private MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
   public Music() {
-    playCardSound("flip.wav");
+    playCardSound("creepy.wav");
     playMusic();
   }
 
   public void playMusic() {
     mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     mediaPlayer.play();
-    mediaPlayer.setVolume(0.5);
+    mediaPlayer.setVolume(0.8);
   }
 
   public void playCardSound(String soundName) {
