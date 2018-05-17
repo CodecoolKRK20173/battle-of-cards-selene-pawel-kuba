@@ -13,7 +13,6 @@ public class Music {
 
   public Music() {
     playCardSound("flip.wav");
-
     playMusic();
   }
 

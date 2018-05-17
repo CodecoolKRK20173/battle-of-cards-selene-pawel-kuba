@@ -28,6 +28,7 @@ public class Game extends Pane {
   private long startTime;
 
   public Game() {
+
     initPiles();
     // stock.shufflePile();
     setCardsOnTable();
@@ -45,11 +46,7 @@ public class Game extends Pane {
         });
   }
 
-  public void cardsNames(Pile pile) {
-    ObservableList<Card> cards = pile.getCards();
-    for (Card c : cards) {}
-  }
-
+  // liczba kart
   public void initPiles() {
     stock = new Pile("stock", 10);
     Card.createStartPile(stock, 30);
@@ -61,7 +58,7 @@ public class Game extends Pane {
   }
 
   public boolean isWon() {
-    if (playerPile.getCards().size() == 60) {
+    if (stock.isEmpty()) {
       System.out.println("You won!");
       finalTime = System.nanoTime() - startTime;
       return true;
@@ -80,6 +77,7 @@ public class Game extends Pane {
                 BackgroundSize.DEFAULT)));
   }
 
+  // i tu
   public void setCardsOnTable() {
     ObservableList<Card> cards = stock.getCards();
     int j = 0;
